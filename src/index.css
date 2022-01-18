@@ -1,13 +1,53 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+.page {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 40px;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.equation {
+  width: 200px;
+  display: flex;
+  margin-bottom: 100px;
+}
+
+.equation span {
+  margin-left: 5px;
+}
+
+.decision {
+  position: relative;
+}
+
+.input {
+  width: 55px;
+  height: 44px;
+  font-size: 40px;
+  text-align: center;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.input:disabled {
+  color: black;
+  background-color: white;
+  border: none;
+}
+
+.input_invisible {
+  display: none;
+}
+
+.input_invalid {
+  color: red;
+}
+
+.canvas-arrow {
+  width: 875px;
+  height: 200px;
+  background: url('image/number_axis.png') no-repeat;
+  background-position: bottom;
 }
