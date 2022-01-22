@@ -25,14 +25,15 @@ function Decision({
     const canvas = refCanvas.current;
     const ctx = canvas.getContext('2d');
 
-    drowCanvasArrow(ctx, 37, valueA, refInputA.current);
+    drowCanvasArrow(ctx, 37, valueA, refInputA.current, 0);
 
     if (inputValueA === valueA) {
       drowCanvasArrow(
         ctx,
         calcEndAxisX(valueA),
         valueAnswer,
-        refInputB.current
+        refInputB.current,
+        calcEndAxisX(valueA)
       );
     }
   }, [valueA, valueB, inputValueA]);
@@ -41,7 +42,13 @@ function Decision({
     return 38.7 * (value + 1);
   }
 
-  function drowCanvasArrow(ctx, startAxisX, value, inputNode) {
+  function drowCanvasArrow(
+    ctx,
+    startAxisX,
+    value,
+    inputNode,
+    secondArrowStartAxisX
+  ) {
     if (value !== null) {
       const axisY = 136;
       const endAxisX = calcEndAxisX(value);
@@ -50,9 +57,19 @@ function Decision({
       const targetX = (endAxisX - startAxisX) / 2 + startAxisX;
       const targetY = endAxisX * 0.01;
       ctx.quadraticCurveTo(targetX, targetY, endAxisX, axisY);
-      ctx.lineTo(endAxisX, axisY - 10);
-      ctx.moveTo(endAxisX, axisY);
-      ctx.lineTo(endAxisX - 10, axisY);
+
+      const headLength = 15;
+      const angleArrow = Math.atan2(axisY, targetX - secondArrowStartAxisX);
+      ctx.moveTo(
+        endAxisX - headLength * Math.cos(angleArrow - Math.PI / 6),
+        axisY - headLength * Math.sin(angleArrow - Math.PI / 6)
+      );
+      ctx.lineTo(endAxisX, axisY);
+      ctx.lineTo(
+        endAxisX - headLength * Math.cos(angleArrow + Math.PI / 6),
+        axisY - headLength * Math.sin(angleArrow + Math.PI / 6)
+      );
+
       ctx.lineWidth = 2;
       ctx.strokeStyle = 'red';
       ctx.stroke();
